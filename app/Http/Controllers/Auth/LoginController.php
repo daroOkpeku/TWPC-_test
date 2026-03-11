@@ -37,6 +37,11 @@ class LoginController extends Controller
     public function login(Loginrequest $request){
        $validated = $request->validated();
         if(auth()->attempt($validated)){
+            if(auth()->user()->is_blocked == 1){
+             return redirect()->back()->withErrors([
+            'email' => 'Your account has been blocked. Please contact support.',
+             ]);
+            }
             if(auth()->user()->hasRole('admin')){
                 return redirect('admin/dashboard')->with('success', 'Credentials verified. Please login later.');
             }

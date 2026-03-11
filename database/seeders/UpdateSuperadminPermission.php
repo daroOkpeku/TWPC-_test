@@ -6,21 +6,20 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
-class UserPermissionSeeder extends Seeder
+class UpdateSuperadminPermission extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-          $user = Role::where('name', 'user')->first();
+       
+
+        $adminRole = Role::where('name', 'admin')->first();
      
         $permissions = [
-            'view_product',
-            'create_product',
-            'delete_product',
-            'edit_product'
+       'delete_product',
+       'view_product',
         ];
 
         foreach ($permissions as $permission) {
@@ -30,6 +29,6 @@ class UserPermissionSeeder extends Seeder
             ]);
         }
 
-        $user->givePermissionTo($permissions);
+        $adminRole->givePermissionTo($permissions);
     }
 }

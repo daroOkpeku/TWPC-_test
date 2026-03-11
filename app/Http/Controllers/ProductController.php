@@ -13,8 +13,28 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+         
+        $this->middleware('permission:view_product')->only(['index', 'show']);
+        $this->middleware('permission:create_product')->only(['create', 'store']);
+        $this->middleware('permission:edit_product')->only(['edit', 'update']);
+        $this->middleware('permission:delete_product')->only(['destroy']);
+
+    
+    }
+
+
+
     public function index()
     {
+      if(auth()->user()->is_blocked == 1){
+             auth()->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+            return redirect('/')->with('error', 'Your account has been blocked.');
+        }
         $products = auth()->user()->products()->latest()->paginate(10);
         return view('products.index', compact('products'));
     }
@@ -24,6 +44,12 @@ class ProductController extends Controller
      */
     public function create()
     {
+      if(auth()->user()->is_blocked == 1){
+             auth()->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+            return redirect('/')->with('error', 'Your account has been blocked.');
+        }
         return view('products.create');
     }
 
@@ -32,6 +58,12 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
+          if(auth()->user()->is_blocked == 1){
+            auth()->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+            return redirect('/')->with('error', 'Your account has been blocked.');
+        }
         $validated = $request->validated();
         auth()->user()->products()->create($validated);
 
@@ -44,6 +76,12 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+     if(auth()->user()->is_blocked == 1){
+             auth()->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+            return redirect('/')->with('error', 'Your account has been blocked.');
+        }
         return view('products.show', compact('product'));
     }
 

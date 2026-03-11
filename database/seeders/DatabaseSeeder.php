@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             CreateSuperAdminSeeder::class,
             PermissionSeeder::class,
-            UserPermissionSeeder::class
+            UserPermissionSeeder::class,
+            UpdateSuperadminPermission::class
         ]);
     }
 }
