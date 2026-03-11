@@ -9,11 +9,9 @@ use App\Http\Controllers\HomeController;
 Auth::routes();
 
 
-// Route::get('/', function () {
-//     return auth()->check() ? redirect()->route('products.index') : view('welcome');
-// })->name('welcome');
- Route::get('/', [HomeController::class, 'welcome'])->name('welcome')->middleware('check-auth');
-// welcome
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'welcome'])->name('welcome')->middleware('check-auth');
+
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::resource('products', ProductController::class);
     Route::get('/dashboard', function () {
@@ -31,4 +29,3 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('/products/{product}', [AdminController::class, 'deleteProduct'])->name('products.delete');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
