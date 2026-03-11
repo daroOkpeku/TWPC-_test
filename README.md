@@ -34,7 +34,7 @@ A Laravel-based e-commerce application with user authentication, product managem
 - **PHP 8.2+**
 - **Laravel 12.0** - PHP Framework
 - **Spatie Laravel Permission 6.24** - Role-based permissions
-- **MySQL/SQLite** - Database
+- **MySQL** - Database
 
 ### Frontend
 - **Bootstrap 5** - CSS Framework
@@ -54,7 +54,7 @@ A Laravel-based e-commerce application with user authentication, product managem
 - PHP 8.2 or higher
 - Composer
 - Node.js and NPM
-- Database (MySQL/SQLite)
+- Database (MySQL)
 
 ### Quick Setup
 ```bash
